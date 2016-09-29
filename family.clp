@@ -18,19 +18,19 @@
 (deftemplate brother-of (slot brother) (slot person))
 
 (deffacts my-family
-	  (mother-of (mother jeanne) (child connie))
-	  (father-of (father bob) (child connie))
-	  (sister-of (sister hannah) (person thomas))
-	  (mother-of (mother hannah) (child barney))
-	  (mother-of (mother tara) (child connor))
-	  (sister-of (sister tara) (person connie))
-	  (brother-of (brother paul) (person victor))
-	  (father-of (father victor) (child thomas))
-	  (wife-of (wife connie) (husband victor))
-	  (father-of (father thomas) (child timmy))
-	  (father-of (father thomas) (child sally))
-	  (female (person sally))
-	  (male (person timmy))
+    (mother-of (mother jeanne) (child connie))
+    (father-of (father bob) (child connie))
+    (sister-of (sister hannah) (person thomas))
+    (mother-of (mother hannah) (child barney))
+    (mother-of (mother tara) (child connor))
+    (sister-of (sister tara) (person connie))
+    (brother-of (brother paul) (person victor))
+    (father-of (father victor) (child thomas))
+    (wife-of (wife connie) (husband victor))
+    (father-of (father thomas) (child timmy))
+    (father-of (father thomas) (child sally))
+    (female (person sally))
+    (male (person timmy))
 )
 (reset)
 
@@ -98,23 +98,23 @@
 )
 
 (defrule parent-of
-	(or
-		(or
-	    (father-of (father ?p) (child ?c))
-	    (mother-of (mother ?p) (child ?c)))
-		(and
-			(parent-of (parent ?p) (child ?s))
-			(or
-				(sister-of (sister ?s) (person ?c))
-				(brother-of (brother ?s) (person ?c)))))
-	=>
+  (or
+    (or
+      (father-of (father ?p) (child ?c))
+      (mother-of (mother ?p) (child ?c)))
+    (and
+      (parent-of (parent ?p) (child ?s))
+      (or
+        (sister-of (sister ?s) (person ?c))
+        (brother-of (brother ?s) (person ?c)))))
+  =>
   (assert (parent-of (parent ?p) (child ?c)))
 )
 
 (defrule mother-of
   (or
     (and
-			(female (person ?p))
+      (female (person ?p))
       (parent-of (parent ?p) (child ?c)))
     (and
       (wife-of (wife ?p) (husband ?h))
@@ -126,7 +126,7 @@
 (defrule father-of
   (or
     (and
-			(male (person ?p))
+      (male (person ?p))
       (parent-of (parent ?p) (child ?c)))
     (and
       (husband-of (husband ?p) (wife ?w))
@@ -136,32 +136,32 @@
 )
 
 (defrule sister-of
-	(and
-		(female (person ?p1))
-		(or
-		  (and
-				(parent-of (parent ?p3) (child ?p1))
-		    (parent-of (parent ?p3) (child ?p2&: (<> ?p1 ?p2))))
-			(and
-				(or
-					(sister-of (sister ?p2) (person ?p1))
-					(brother-of (brother ?p2) (person ?p1))))))
-	=>
+  (and
+    (female (person ?p1))
+    (or
+      (and
+        (parent-of (parent ?p3) (child ?p1))
+        (parent-of (parent ?p3) (child ?p2&: (<> ?p1 ?p2))))
+      (and
+        (or
+          (sister-of (sister ?p2) (person ?p1))
+          (brother-of (brother ?p2) (person ?p1))))))
+  =>
   (assert (sister-of (sister ?p1) (person ?p2)))
 )
 
 (defrule brother-of
-	(and
-		(male (person ?p1))
-		(or
-		  (and
-				(parent-of (parent ?p3) (child ?p1))
-		    (parent-of (parent ?p3) (child ?p2&: (<> ?p1 ?p2))))
-			(and
-				(or
-					(sister-of (sister ?p2) (person ?p1))
-					(brother-of (brother ?p2) (person ?p1))))))
-	=>
+  (and
+    (male (person ?p1))
+    (or
+      (and
+        (parent-of (parent ?p3) (child ?p1))
+        (parent-of (parent ?p3) (child ?p2&: (<> ?p1 ?p2))))
+      (and
+        (or
+          (sister-of (sister ?p2) (person ?p1))
+          (brother-of (brother ?p2) (person ?p1))))))
+  =>
   (assert (brother-of (brother ?p1) (person ?p2)))
 )
 
