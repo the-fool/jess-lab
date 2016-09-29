@@ -142,10 +142,9 @@
       (and
         (parent-of (parent ?p3) (child ?p1))
         (parent-of (parent ?p3) (child ?p2&: (<> ?p1 ?p2))))
-      (and
-        (or
+      (or
           (sister-of (sister ?p2) (person ?p1))
-          (brother-of (brother ?p2) (person ?p1))))))
+          (brother-of (brother ?p2) (person ?p1)))))
   =>
   (assert (sister-of (sister ?p1) (person ?p2)))
 )
@@ -157,10 +156,9 @@
       (and
         (parent-of (parent ?p3) (child ?p1))
         (parent-of (parent ?p3) (child ?p2&: (<> ?p1 ?p2))))
-      (and
-        (or
+       (or
           (sister-of (sister ?p2) (person ?p1))
-          (brother-of (brother ?p2) (person ?p1))))))
+          (brother-of (brother ?p2) (person ?p1)))))
   =>
   (assert (brother-of (brother ?p1) (person ?p2)))
 )
