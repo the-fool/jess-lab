@@ -18,11 +18,8 @@
   (slot risk))
 
 (defrule init
-  (and
-    (person (name ?n))
-    (not (policy (name ?n))))
+  (person (name ?n))  
   =>
-  (printout t ?n)
   (assert (policy (name ?n) (risk 0) (cost 0))))
 
 (defrule set_cost
